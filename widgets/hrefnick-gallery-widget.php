@@ -3,6 +3,10 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 
+use Elementor\Controls_Manager;
+use Elementor\Group_Control_Typography;
+use Elementor\Group_Control_Border;
+
 /**
  * Elementor hrefnick Gallery Widget.
  *
@@ -42,19 +46,94 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
         $this->start_controls_section(
             'section_content',
             [
-                'label' => esc_html__( 'Content', 'text-domain' ),
+                'label' => esc_html__( 'Content', 'hrefnick-widget' ),
             ]
         );
 
         $this->add_control(
             'post_type',
             [
-                'label' => esc_html__( 'Post Type', 'text-domain' ),
+                'label' => esc_html__( 'Post Type', 'hrefnick-widget' ),
                 'type' => \Elementor\Controls_Manager::SELECT,
                 'options' => $this->get_post_types(),
                 'default' => 'post',
             ]
         );
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+            'card_style_section',
+            [
+                'label' => esc_html__( 'Card Style', 'hrefnick-widget' ),
+                'tab' => Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_control(
+            'card_background_color',
+            [
+                'label' => esc_html__( 'Background Color', 'hrefnick-widget' ),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .custom-gallery .card' => 'background-color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'card_title_color',
+            [
+                'label' => esc_html__( 'Title Color', 'hrefnick-widget' ),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .custom-gallery .card .card-title' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Typography::get_type(),
+            [
+                'name' => 'card_title_typography',
+                'label' => esc_html__( 'Title Typography', 'hrefnick-widget' ),
+                'selector' => '{{WRAPPER}} .custom-gallery .card .card-title',
+            ]
+        );
+
+        $this->add_responsive_control(
+            'card_padding',
+            [
+                'label' => esc_html__( 'Card Padding', 'hrefnick-widget' ),
+                'type' => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', 'em', '%' ],
+                'selectors' => [
+                    '{{WRAPPER}} .custom-gallery .card' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_responsive_control(
+            'card_margin',
+            [
+                'label' => esc_html__( 'Card Margin', 'hrefnick-widget' ),
+                'type' => Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', 'em', '%' ],
+                'selectors' => [
+                    '{{WRAPPER}} .custom-gallery .card' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Border::get_type(),
+            [
+                'name' => 'card_border',
+                'label' => esc_html__( 'Card Border', 'hrefnick-widget' ),
+                'selector' => '{{WRAPPER}} .custom-gallery .card',
+            ]
+        );
+
 
         $this->end_controls_section();
     }
