@@ -152,6 +152,28 @@ class Elementor_Hrefnick_Widget2 extends \Elementor\Widget_Base
             ]
         );
 
+        $this->add_control(
+            'list_background_color',
+            [
+                'label' => esc_html__( 'List Background Color', 'hrefnick-widget' ),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .custom-list' => 'background-color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'list_text_color',
+            [
+                'label' => esc_html__( 'List Text Color', 'hrefnick-widget' ),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .custom-list li' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
         $this->add_responsive_control(
             'list_padding',
             [
@@ -210,6 +232,17 @@ class Elementor_Hrefnick_Widget2 extends \Elementor\Widget_Base
             [
                 'label' => esc_html__( 'List Item Style', 'hrefnick-widget' ),
                 'tab' => Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_control(
+            'list_item_background_color',
+            [
+                'label' => esc_html__( 'List Item Color', 'hrefnick-widget' ),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .custom-list li' => 'background-color: {{VALUE}};',
+                ],
             ]
         );
 

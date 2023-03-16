@@ -252,12 +252,34 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
         );
 
         $this->add_control(
+            'hover_button_background_color',
+            [
+                'label' => esc_html__( 'Hover Background Color', 'hrefnick-widget' ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .custom-button:hover' => 'background-color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
             'button_text_color',
             [
                 'label' => esc_html__( 'Button Text Color', 'hrefnick-widget' ),
                 'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .custom-button' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'hover_button_text_color',
+            [
+                'label' => esc_html__( 'Hover Text Color', 'hrefnick-widget' ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .custom-button:hover' => 'color: {{VALUE}};',
                 ],
             ]
         );
