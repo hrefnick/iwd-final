@@ -213,6 +213,24 @@ class Elementor_Hrefnick_Widget2 extends \Elementor\Widget_Base
             ]
         );
 
+        $this->add_control(
+            'bullet_padding',
+            [
+                'label' => esc_html__( 'Bullet Padding', 'hrefnick-widget' ),
+                'type' => Controls_Manager::SLIDER,
+                'size_units' => [ 'px' ],
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 50,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .spacing' => 'padding-left: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+
         $this->add_responsive_control(
             'list_item_padding',
             [
@@ -280,6 +298,7 @@ class Elementor_Hrefnick_Widget2 extends \Elementor\Widget_Base
             if ( ! empty( $bullet_icon['url'] ) ) {
                 echo '<img src="' . $bullet_icon['url'] . '" class="custom-list-icon" alt="" />';
             }
+            echo '<span class="spacing"></span>';
             echo $list_item['list_item'];
             echo '</li>';
         }
