@@ -6,7 +6,7 @@
  * Version:     1.0.0
  * Author:      hrefnick
  * Author URI:  https://hrefnick.com/
- * Text Domain: elementor-addon
+ * Text Domain: hrefnick-widget
  */
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
@@ -21,11 +21,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param \Elementor\Widgets_Manager $widgets_manager Elementor widgets manager.
  * @return void
  */
-function register_hrefnick_gallery_widget( $widgets_manager ) {
+function register_hrefnick_widget( $widgets_manager ) {
 
     require_once( __DIR__ . '/widgets/hrefnick-gallery-widget.php' );
 
-    $widgets_manager->register( new \Elementor_Hrefnick_Gallery_Widget() );
+    $widgets_manager->register( new \Elementor_Hrefnick_Widget() );
 
 }
-add_action( 'elementor/widgets/register', 'register_hrefnick_gallery_widget' );
+add_action( 'elementor/widgets/register', 'register_hrefnick_widget' );
