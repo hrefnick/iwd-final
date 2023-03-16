@@ -24,7 +24,7 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
 
     public function get_title()
     {
-        return esc_html__('Custom Post Type Gallery Widget', 'hrefnick-widget');
+        return esc_html__('Custom Post-Type Gallery', 'hrefnick-widget');
     }
 
     public function get_icon()
@@ -72,6 +72,27 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
         $this->end_controls_section();
 
         $this->start_controls_section(
+            'section_layout',
+            [
+                'label' => esc_html__( 'Layout', 'hrefnick-widget' ),
+            ]
+        );
+
+        $this->add_control(
+            'posts_per_row',
+            [
+                'label' => esc_html__( 'Posts per row', 'hrefnick-widget' ),
+                'type' => \Elementor\Controls_Manager::NUMBER,
+                'default' => 4,
+                'min' => 1,
+                'max' => 6,
+                'step' => 1,
+            ]
+        );
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
             'card_style_section',
             [
                 'label' => esc_html__( 'Card Style', 'hrefnick-widget' ),
@@ -90,16 +111,7 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
             ]
         );
 
-        $this->add_control(
-            'card_title_color',
-            [
-                'label' => esc_html__( 'Title Color', 'hrefnick-widget' ),
-                'type' => Controls_Manager::COLOR,
-                'selectors' => [
-                    '{{WRAPPER}} .custom-gallery .card .card-title' => 'color: {{VALUE}};',
-                ],
-            ]
-        );
+
 
         $this->add_responsive_control(
             'card_padding',
@@ -134,6 +146,24 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
             ]
         );
 
+        $this->add_control(
+            'card_border_radius',
+            [
+                'label' => esc_html__( 'Card Border Radius', 'hrefnick-widget' ),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 50,
+                        'step' => 1,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .card' => 'border-radius: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+
         $this->end_controls_section();
 
         $this->start_controls_section(
@@ -150,6 +180,17 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
                 'name' => 'card_title_typography',
                 'label' => esc_html__( 'Title Typography', 'hrefnick-widget' ),
                 'selector' => '{{WRAPPER}} .custom-gallery .card .card-title',
+            ]
+        );
+
+        $this->add_control(
+            'card_title_color',
+            [
+                'label' => esc_html__( 'Title Color', 'hrefnick-widget' ),
+                'type' => Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .custom-gallery .card .card-title' => 'color: {{VALUE}};',
+                ],
             ]
         );
 
@@ -281,6 +322,23 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
             ]
         );
 
+        $this->add_control(
+            'button_border_radius',
+            [
+                'label' => esc_html__( 'Button Border Radius', 'hrefnick-widget' ),
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 50,
+                        'step' => 1,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .custom-button' => 'border-radius: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
 
 
         $this->end_controls_section();
@@ -292,6 +350,7 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
         $settings = $this->get_settings_for_display();
 
         $post_type = $settings['post_type'];
+        $posts_per_row = $settings['posts_per_row'];
 
         $args = array(
             'post_type' => $post_type,
@@ -302,6 +361,11 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
 
         if ( $query->have_posts() ) :
             echo '<div class="custom-gallery">';
+
+            $output = '<div class="my-custom-gallery-widget">';
+            $output .= '<div class="row">';
+
+            $post_count = 0;
 
             while ( $query->have_posts() ) : $query->the_post();
 
@@ -327,13 +391,21 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
                     echo '</a>';
                     echo '</div>'; // .custom-gallery-item
                 endif;
-
+                $post_count++;
+                if ( $post_count % $posts_per_row === 0 ) {
+                    $output .= '</div><div class="row">';
+                }
             endwhile;
 
             echo '</div>'; // .custom-gallery
-        endif;
 
-        wp_reset_postdata();
+            $output .= '</div>';
+            $output .= '</div>';
+
+            wp_reset_postdata();
+
+            echo $output;
+        endif;
     }
 
     // get post types for gallery
