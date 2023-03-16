@@ -118,7 +118,7 @@ class Elementor_Hrefnick_Widget2 extends \Elementor\Widget_Base
                 'default' => [
                     'url' => \Elementor\Utils::get_placeholder_image_src(),
                 ],
-                'description' => esc_html__( 'Upload a custom bullet icon, for best results use 10px by 10px.', 'hrefnick-widget' ),
+                'description' => esc_html__( 'Upload a custom bullet icon, for best results use 18px by 18px.', 'hrefnick-widget' ),
             ]
         );
 
