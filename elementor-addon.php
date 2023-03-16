@@ -36,3 +36,12 @@ function register_hrefnick_widget( $widgets_manager ) {
 
 }
 add_action( 'elementor/widgets/register', 'register_hrefnick_widget', 99);
+
+function register_hrefnick_widget2( $widgets_manager ) {
+
+    require_once( __DIR__ . '/widgets/hrefnick-list-widget.php' );
+
+    $widgets_manager->register( new \Elementor_Hrefnick_Widget2() );
+
+}
+add_action( 'elementor/widgets/register', 'register_hrefnick_widget2', 99);

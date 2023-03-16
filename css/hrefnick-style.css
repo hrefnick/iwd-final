@@ -45,3 +45,7 @@
 .text-right {
     text-align: right;
 }
+
+ul.custom-list {
+    list-style: none;
+}
