@@ -87,7 +87,10 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
                 'min' => 1,
                 'max' => 6,
                 'step' => 1,
+                'selectors' => [
+                    '{{WRAPPER}} .custom-gallery' => 'grid-template-columns: repeat({{VALUE}},1fr);',
             ]
+                ]
         );
 
         $this->end_controls_section();
@@ -373,7 +376,7 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
 
         $post_type = $settings['post_type'];
         $posts_per_row = $settings['posts_per_row'];
-
+        echo $posts_per_row;
         $args = array(
             'post_type' => $post_type,
             'posts_per_page' => -1,
@@ -382,10 +385,10 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
         $query = new WP_Query( $args );
 
         if ( $query->have_posts() ) :
-            echo '<div class="custom-gallery">';
+            $output =  '<div class="custom-gallery">';
 
-            $output = '<div class="my-custom-gallery-widget">';
-            $output .= '<div class="row">';
+           // $output .= '<div class="my-custom-gallery-widget">';
+            //$output .= '<div class="row">';
 
             $post_count = 0;
 
@@ -394,35 +397,35 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
                 if ( has_post_thumbnail() ) :
                     $post_link = get_permalink();
                     $alignment_class = 'text-' . $settings['button_alignment'];
-                    echo '<div class="custom-gallery-item">';
-                    echo '<a href="' . $post_link . '">';
-                    echo '<div class="card">';
-                    echo '<div class="card-image"><a href="' . $post_link . '">' . get_the_post_thumbnail() . '</a></div>';
-                    echo '<div class="card-content">';
-                    echo '<h3 class="card-title">' . get_the_title() . '</h3>';
-                    echo '<?php if ( ! empty( $settings[\'button_text\'] ) ) {?>
-                            <div class="my-card-button ' . esc_attr( $alignment_class ) . '">
+                    $output .= '<div class="custom-gallery-item">';
+                    $output .= '<a href="' . $post_link . '">';
+                    $output .= '<div class="card">';
+                    $output .= '<div class="card-image"><a href="' . $post_link . '">' . get_the_post_thumbnail() . '</a></div>';
+                    $output .= '<div class="card-content">';
+                    $output .= '<h3 class="card-title">' . get_the_title() . '</h3>';
+                    $output .=  $settings['button_text'] ?
+                            '<div class="my-card-button ' . esc_attr( $alignment_class ) . '">
                             <a href="' . esc_url( get_permalink() ) . '" class="custom-button elementor-button-link elementor-button elementor-size-md" 
-                            style="background-color:' . esc_attr( $settings['button_color'] ) . '">
-                            <?php } ?>';
-                    echo esc_html( $settings['button_text'] ) . '</a>';
-                    echo '</div>';
-                    echo '<?php endif; ?>';
-                    echo '</div>'; // .card-content
-                    echo '</div>'; // .card
-                    echo '</a>';
-                    echo '</div>'; // .custom-gallery-item
+                            style="background-color:' . esc_attr( $settings['button_color'] ) . '">'
+                            . esc_html( $settings['button_text'] ) . '</a>
+                            </div>'
+                        : '';
+
+                    $output .= '</div>'; // .card-content
+                    $output .= '</div>'; // .card
+                    $output .= '</a>';
+                    $output .= '</div>'; // .custom-gallery-item
                 endif;
                 $post_count++;
-                if ( $post_count % $posts_per_row === 0 ) {
-                    $output .= '</div><div class="row">';
-                }
+                //if ( $post_count % $posts_per_row === 0 ) {
+                 //   $output .= '</div><div class="row">';
+              //  }
             endwhile;
 
-            echo '</div>'; // .custom-gallery
 
-            $output .= '</div>';
-            $output .= '</div>';
+           // $output .= '</div>'; // .row
+           // $output .= '</div>';
+            $output .= '</div>'; // .custom-gallery
 
             wp_reset_postdata();
 
