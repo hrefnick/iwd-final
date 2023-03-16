@@ -60,6 +60,16 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
             ]
         );
 
+        $this->add_control(
+            'button_text',
+            [
+                'label' => esc_html__( 'Button Text', 'hrefnick-widget' ),
+                'type' => Controls_Manager::TEXT,
+                'default' => esc_html__( 'Read More', 'hrefnick-widget' ),
+            ]
+        );
+
+
         $this->end_controls_section();
 
         $this->start_controls_section(
@@ -164,7 +174,14 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
                     echo '<div class="card">';
                     echo '<div class="card-image"><a href="' . $post_link . '">' . get_the_post_thumbnail() . '</a></div>';
                     echo '<div class="card-content">';
-                    echo '<h3 class="card-title"><a href="' . $post_link . '">' . get_the_title() . '</a></h3>';
+                    echo '<h3 class="card-title">' . get_the_title() . '</h3>';
+                    echo '<?php if ( ! empty( $settings[\'button_text\'] ) ) : ?>
+                            <div class="my-card-button">
+                            <a href="' . esc_url( get_permalink() ) . '" class="elementor-button-link elementor-button elementor-size-md" 
+                            style="background-color:' . esc_attr( $settings['button_color'] ) . '">';
+                    echo esc_html( $settings['button_text'] ) . '</a>';
+                    echo '</div>';
+                    echo '<?php endif; ?>';
                     echo '</div>'; // .card-content
                     echo '</div>'; // .card
                     echo '</a>';
