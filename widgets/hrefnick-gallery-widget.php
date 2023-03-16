@@ -376,7 +376,6 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
 
         $post_type = $settings['post_type'];
         $posts_per_row = $settings['posts_per_row'];
-        echo $posts_per_row;
         $args = array(
             'post_type' => $post_type,
             'posts_per_page' => -1,
