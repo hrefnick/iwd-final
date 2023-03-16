@@ -104,7 +104,7 @@ class Elementor_Hrefnick_Widget2 extends \Elementor\Widget_Base
         $this->start_controls_section(
             'list_settings',
             [
-                'label' => esc_html__( 'List Settings', 'hrefnick-widget' ),
+                'label' => esc_html__( 'List Icon', 'hrefnick-widget' ),
                 'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
