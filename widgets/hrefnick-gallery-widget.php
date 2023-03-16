@@ -25,7 +25,7 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
 
     public function get_icon()
     {
-        return 'fa fa-image';
+        return 'eicon-gallery-grid';
     }
 
     public function get_categories()
@@ -79,16 +79,24 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
             while ( $query->have_posts() ) : $query->the_post();
 
                 if ( has_post_thumbnail() ) :
+                    $post_link = get_permalink();
                     echo '<div class="custom-gallery-item">';
-                    echo get_the_post_thumbnail();
-                    echo '<h3>' . get_the_title() . '</h3>';
-                    echo '</div>';
+                    echo '<a href="' . $post_link . '">';
+                    echo '<div class="card">';
+                    echo '<div class="card-image"><a href="' . $post_link . '">' . get_the_post_thumbnail() . '</a></div>';
+                    echo '<div class="card-content">';
+                    echo '<h3 class="card-title"><a href="' . $post_link . '">' . get_the_title() . '</a></h3>';
+                    echo '</div>'; // .card-content
+                    echo '</div>'; // .card
+                    echo '</a>';
+                    echo '</div>'; // .custom-gallery-item
                 endif;
 
             endwhile;
 
-            echo '</div>';
+            echo '</div>'; // .custom-gallery
         endif;
+
         wp_reset_postdata();
     }
 
@@ -109,4 +117,5 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
         }
         return $options;
     }
+
 }
