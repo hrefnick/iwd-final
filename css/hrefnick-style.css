@@ -34,3 +34,21 @@
     margin-bottom: 0;
     font-size: 14px;
 }
+
+/* Button styles */
+.elementor-button {
+    display: inline-block;
+}
+
+/* Button alignment */
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}

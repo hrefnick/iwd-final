@@ -64,11 +64,10 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
             'button_text',
             [
                 'label' => esc_html__( 'Button Text', 'hrefnick-widget' ),
-                'type' => Controls_Manager::TEXT,
+                'type' => \Elementor\Controls_Manager::TEXT,
                 'default' => esc_html__( 'Read More', 'hrefnick-widget' ),
             ]
         );
-
 
         $this->end_controls_section();
 
@@ -99,15 +98,6 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
                 'selectors' => [
                     '{{WRAPPER}} .custom-gallery .card .card-title' => 'color: {{VALUE}};',
                 ],
-            ]
-        );
-
-        $this->add_group_control(
-            Group_Control_Typography::get_type(),
-            [
-                'name' => 'card_title_typography',
-                'label' => esc_html__( 'Title Typography', 'hrefnick-widget' ),
-                'selector' => '{{WRAPPER}} .custom-gallery .card .card-title',
             ]
         );
 
@@ -144,6 +134,154 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
             ]
         );
 
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+            'title_style_section',
+            [
+                'label' => esc_html__( 'Title Style', 'hrefnick-widget' ),
+                'tab' => Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Typography::get_type(),
+            [
+                'name' => 'card_title_typography',
+                'label' => esc_html__( 'Title Typography', 'hrefnick-widget' ),
+                'selector' => '{{WRAPPER}} .custom-gallery .card .card-title',
+            ]
+        );
+
+        $this->add_control(
+            'title_alignment',
+            [
+                'label' => esc_html__( 'Title Alignment', 'hrefnick-widget' ),
+                'type' => \Elementor\Controls_Manager::CHOOSE,
+                'options' => [
+                    'left' => [
+                        'title' => esc_html__( 'Left', 'your-plugin' ),
+                        'icon' => 'eicon-h-align-left',
+                    ],
+                    'center' => [
+                        'title' => esc_html__( 'Center', 'your-plugin' ),
+                        'icon' => 'eicon-h-align-center',
+                    ],
+                    'right' => [
+                        'title' => esc_html__( 'Right', 'your-plugin' ),
+                        'icon' => 'eicon-h-align-right',
+                    ],
+                ],
+                'default' => 'center',
+                'toggle' => true,
+                'selectors' => [
+                    '{{WRAPPER}} .card-title' => 'text-align: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+            'button_style_section',
+            [
+                'label' => esc_html__( 'Button Style', 'hrefnick-widget' ),
+                'tab' => Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_group_control(
+            Group_Control_Typography::get_type(),
+            [
+                'name' => 'card_button_typography',
+                'label' => esc_html__( 'Button Typography', 'hrefnick-widget' ),
+                'selector' => '{{WRAPPER}} .custom-button',
+            ]
+        );
+
+        $this->add_control(
+            'button_background_color',
+            [
+                'label' => esc_html__( 'Button Background Color', 'hrefnick-widget' ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .custom-button' => 'background-color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'button_text_color',
+            [
+                'label' => esc_html__( 'Button Text Color', 'hrefnick-widget' ),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'selectors' => [
+                    '{{WRAPPER}} .custom-button' => 'color: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'button_padding',
+            [
+                'label' => esc_html__( 'Button Padding', 'hrefnick-widget' ),
+                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', '%', 'em' ],
+                'selectors' => [
+                    '{{WRAPPER}} .custom-button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'button_margin',
+            [
+                'label' => esc_html__( 'Button Margin', 'hrefnick-widget' ),
+                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'size_units' => [ 'px', '%', 'em' ],
+                'selectors' => [
+                    '{{WRAPPER}} .custom-button' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'button_alignment',
+            [
+                'label' => esc_html__( 'Button Alignment', 'hrefnick-widget' ),
+                'type' => \Elementor\Controls_Manager::CHOOSE,
+                'options' => [
+                    'left' => [
+                        'title' => esc_html__( 'Left', 'hrefnick-widget' ),
+                        'icon' => 'eicon-h-align-left',
+                    ],
+                    'center' => [
+                        'title' => esc_html__( 'Center', 'hrefnick-widget' ),
+                        'icon' => 'eicon-h-align-center',
+                    ],
+                    'right' => [
+                        'title' => esc_html__( 'Right', 'hrefnick-widget' ),
+                        'icon' => 'eicon-h-align-right',
+                    ],
+                ],
+                'default' => 'center',
+                'toggle' => true,
+                'selectors' => [
+                    '{{WRAPPER}} .my-card-button' => 'text-align: {{VALUE}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Border::get_type(),
+            [
+                'name' => 'button_border',
+                'label' => esc_html__( 'Button Border', 'hrefnick-widget' ),
+                'selector' => '{{WRAPPER}} .custom-button',
+            ]
+        );
+
+
 
         $this->end_controls_section();
     }
@@ -169,16 +307,18 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
 
                 if ( has_post_thumbnail() ) :
                     $post_link = get_permalink();
+                    $alignment_class = 'text-' . $settings['button_alignment'];
                     echo '<div class="custom-gallery-item">';
                     echo '<a href="' . $post_link . '">';
                     echo '<div class="card">';
                     echo '<div class="card-image"><a href="' . $post_link . '">' . get_the_post_thumbnail() . '</a></div>';
                     echo '<div class="card-content">';
                     echo '<h3 class="card-title">' . get_the_title() . '</h3>';
-                    echo '<?php if ( ! empty( $settings[\'button_text\'] ) ) : ?>
-                            <div class="my-card-button">
-                            <a href="' . esc_url( get_permalink() ) . '" class="elementor-button-link elementor-button elementor-size-md" 
-                            style="background-color:' . esc_attr( $settings['button_color'] ) . '">';
+                    echo '<?php if ( ! empty( $settings[\'button_text\'] ) ) {?>
+                            <div class="my-card-button ' . esc_attr( $alignment_class ) . '">
+                            <a href="' . esc_url( get_permalink() ) . '" class="custom-button elementor-button-link elementor-button elementor-size-md" 
+                            style="background-color:' . esc_attr( $settings['button_color'] ) . '">
+                            <?php } ?>';
                     echo esc_html( $settings['button_text'] ) . '</a>';
                     echo '</div>';
                     echo '<?php endif; ?>';

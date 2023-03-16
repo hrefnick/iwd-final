@@ -22,6 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return void
  */
 
+
 function hrefnick_widget_enqueue_styles() {
     wp_enqueue_style( 'hrefnick-style', plugins_url( 'css/hrefnick-style.css', __FILE__ ), array(), '1.0.0', 'all' );
 }
