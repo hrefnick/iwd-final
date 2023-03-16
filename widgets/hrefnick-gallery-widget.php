@@ -59,4 +59,54 @@ class Elementor_Hrefnick_Widget extends \Elementor\Widget_Base
         $this->end_controls_section();
     }
 
+    // begin render, this is what the user will see
+
+    protected function render() {
+        $settings = $this->get_settings_for_display();
+
+        $post_type = $settings['post_type'];
+
+        $args = array(
+            'post_type' => $post_type,
+            'posts_per_page' => -1,
+        );
+
+        $query = new WP_Query( $args );
+
+        if ( $query->have_posts() ) :
+            echo '<div class="custom-gallery">';
+
+            while ( $query->have_posts() ) : $query->the_post();
+
+                if ( has_post_thumbnail() ) :
+                    echo '<div class="custom-gallery-item">';
+                    echo get_the_post_thumbnail();
+                    echo '<h3>' . get_the_title() . '</h3>';
+                    echo '</div>';
+                endif;
+
+            endwhile;
+
+            echo '</div>';
+        endif;
+        wp_reset_postdata();
+    }
+
+    // get post types for gallery
+    private function get_post_types() {
+        $post_types = get_post_types(
+            array(
+                'public' => true,
+                '_builtin' => false
+            ),
+            'objects'
+        );
+
+        $options = array();
+
+        foreach ( $post_types as $post_type ) {
+            $options[ $post_type->name ] = $post_type->label;
+        }
+        return $options;
+    }
 }
